@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Macro Signal Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg:    #000000;
+  --bg2:   #0A0A0A;
+  --bg3:   #111111;
+  --bg4:   #181818;
+  --border:#1F1F1F;
+  --bord2: #2A2A2A;
+  --text:  #E8E8E8;
+  --text2: #888888;
+  --text3: #444444;
+  --acc:   #00C9A0;
+  --acc2:  #00A882;
+  --red:   #FF3D55;
+  --red2:  #C42B3F;
+  --green: #00C9A0;
+  --green2:#1DB87A;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;min-height:100vh;overflow-x:hidden}
+
+/* ── HEADER ── */
+header{
+  position:sticky;top:0;z-index:20;
+  background:rgba(0,0,0,0.96);
+  border-bottom:1px solid var(--border);
+  backdrop-filter:blur(12px);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 20px;height:52px;
+}
+.logo{display:flex;align-items:center;gap:9px}
+.logo-mark{
+  width:28px;height:28px;border-radius:5px;
+  background:linear-gradient(135deg,#00C9A0,#0055FF);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Space Mono',monospace;font-size:12px;font-weight:700;color:#000;
+  box-shadow:0 0 10px rgba(0,201,160,0.35);
+}
+.logo-name{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.logo-tag{font-size:9px;color:var(--text3);letter-spacing:.06em;margin-top:1px}
+.live{display:flex;align-items:center;gap:5px;font-size:9px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--acc);font-family:'Space Mono',monospace}
+.dot{width:5px;height:5px;border-radius:50%;background:var(--acc);
+  animation:blink 2s infinite;box-shadow:0 0 5px var(--acc)}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* ── CONTROLS ── */
+.ctrl{
+  position:sticky;top:52px;z-index:19;
+  background:rgba(0,0,0,0.97);
+  border-bottom:1px solid var(--border);
+  backdrop-filter:blur(12px);
+  padding:10px 20px;
+}
+.ctrl-inner{max-width:1160px;margin:0 auto}
+
+.grp-row{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px}
+.grp-btn{
+  padding:4px 12px;font-size:10px;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;border:1px solid var(--bord2);border-radius:3px;
+  cursor:pointer;background:transparent;color:var(--text3);
+  font-family:'Space Grotesk',sans-serif;transition:all .15s;
+}
+.grp-btn:hover{color:var(--text2);border-color:var(--text3)}
+.grp-btn.on{background:var(--acc);border-color:var(--acc);color:#000;box-shadow:0 0 12px rgba(0,201,160,.25)}
+
+.ind-row{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px}
+.ind-btn{
+  padding:3px 9px;font-size:11px;font-weight:700;border:1px solid var(--bord2);
+  border-radius:3px;cursor:pointer;background:transparent;color:var(--text3);
+  font-family:'Space Mono',monospace;letter-spacing:.03em;transition:all .15s;
+}
+.ind-btn:hover{color:var(--acc);border-color:var(--acc)}
+.ind-btn.on{background:#0A1A14;border-color:var(--acc);color:var(--acc);box-shadow:0 0 7px rgba(0,201,160,.12)}
+
+.dir-row{display:flex;align-items:flex-start;gap:8px;flex-wrap:wrap}
+.dir-up,.dir-dn{
+  padding:5px 14px;font-size:10px;font-weight:700;border-radius:3px;
+  cursor:pointer;font-family:'Space Mono',monospace;letter-spacing:.06em;
+  border:1px solid var(--bord2);background:transparent;color:var(--text3);transition:all .15s;white-space:nowrap;
+}
+.dir-up.on{background:#071A12;border-color:var(--acc);color:var(--acc);box-shadow:0 0 10px rgba(0,201,160,.15)}
+.dir-dn.on{background:#1A0509;border-color:var(--red);color:var(--red);box-shadow:0 0 10px rgba(255,61,85,.15)}
+.dir-desc{font-size:11px;color:var(--text2);line-height:1.5;flex:1;min-width:140px;padding-left:8px;border-left:1px solid var(--border)}
+
+/* ── INSIGHT BOX ── */
+.insight{
+  max-width:1160px;margin:16px auto 0;
+  padding:12px 16px;
+  background:var(--bg2);border:1px solid var(--bord2);border-radius:6px;
+  display:flex;gap:12px;align-items:flex-start;
+}
+.insight-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.insight-body{}
+.insight-title{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--acc);margin-bottom:3px}
+.insight-text{font-size:12px;color:var(--text2);line-height:1.6}
+
+/* ── MAIN ── */
+main{max-width:1160px;margin:0 auto;padding:18px 20px 60px;position:relative;z-index:1}
+
+/* LEGEND */
+.legend{
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  padding:9px 12px;background:var(--bg2);border:1px solid var(--border);
+  border-radius:5px;margin-bottom:18px;
+}
+.leg-lbl{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-right:2px}
+.leg-item{display:flex;align-items:center;gap:4px}
+.leg-note{font-size:9px;color:var(--text3)}
+
+/* SECTION */
+.sec{margin-bottom:22px}
+.sec-hdr{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.sec-lbl{font-size:9px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--text3)}
+.sec-line{flex:1;height:1px;background:var(--border)}
+.sec-ct{font-size:9px;color:var(--text3);font-family:'Space Mono',monospace}
+.asset-grid{display:grid;gap:5px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+
+/* ── ASSET CARD ── */
+.card{
+  border:1px solid var(--border);border-radius:5px;
+  padding:9px 10px 8px;background:var(--bg2);
+  transition:border-color .18s,background .18s;
+  cursor:default;
+}
+.card:hover{background:var(--bg3);border-color:var(--bord2)}
+.card.cs2{border-color:#0D2A1E}
+.card.cs2:hover{border-color:rgba(0,201,160,.35)}
+.card.csm2{border-color:#1F0A0E}
+.card.csm2:hover{border-color:rgba(255,61,85,.3)}
+
+.card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.card-id{font-size:11px;font-weight:700;font-family:'Space Mono',monospace;color:var(--text);letter-spacing:.02em}
+.card-sub{font-size:9px;color:var(--text3);margin-top:1px}
+
+/* BADGE */
+.badge{display:inline-flex;align-items:center;font-size:9px;font-weight:700;
+  padding:2px 6px;border-radius:2px;font-family:'Space Mono',monospace;letter-spacing:.04em;white-space:nowrap}
+.bs2 {background:#0A2A1C;color:#00C9A0;box-shadow:0 0 5px rgba(0,201,160,.2)}
+.bs1 {background:#071E14;color:#2ECC8A}
+.bs0 {background:#141414;color:#444}
+.bsm1{background:#200810;color:#E05568}
+.bsm2{background:#2A0810;color:#FF3D55;box-shadow:0 0 5px rgba(255,61,85,.2)}
+.bna {color:var(--text3);font-family:'Space Mono',monospace;font-size:10px}
+
+/* PROB BAR */
+.prob-wrap{margin-top:5px}
+.prob-label{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px}
+.prob-name{font-size:9px;color:var(--text3);letter-spacing:.04em}
+.prob-pct{font-size:9px;font-family:'Space Mono',monospace;font-weight:700}
+.prob-track{height:3px;background:var(--bg4);border-radius:2px;overflow:hidden}
+.prob-fill{height:100%;border-radius:2px;transition:width .4s cubic-bezier(.4,0,.2,1)}
+.pfill-bull{background:linear-gradient(90deg,#00A882,#00C9A0)}
+.pfill-bear{background:linear-gradient(90deg,#C42B3F,#FF3D55)}
+.pfill-neut{background:#333}
+
+/* PROB REASON */
+.prob-reason{font-size:9px;color:var(--text3);margin-top:4px;line-height:1.45;font-style:italic}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:18px 20px;text-align:center}
+.disc{font-size:10px;color:var(--text3);max-width:580px;margin:0 auto;line-height:1.6}
+.disc b{color:var(--text2)}
+
+@media(max-width:680px){
+  header{padding:0 12px}.ctrl{padding:8px 12px}main{padding:12px 12px 40px}
+  .g4{grid-template-columns:repeat(2,1fr)}
+  .logo-tag{display:none}
+}
+@media(max-width:420px){.g3{grid-template-columns:repeat(2,1fr)}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-mark">M</div>
+    <div>
+      <div class="logo-name">Macro Signal Board</div>
+      <div class="logo-tag">Macro → Market Correlation</div>
+    </div>
+  </div>
+  <div class="live"><div class="dot"></div>Signal Active</div>
+</header>
+
+<div class="ctrl">
+  <div class="ctrl-inner">
+    <div class="grp-row" id="grpRow"></div>
+    <div class="ind-row" id="indRow"></div>
+    <div class="dir-row" id="dirRow"></div>
+  </div>
+</div>
+
+<div style="background:rgba(0,0,0,0.97);border-bottom:1px solid var(--border);padding:0 20px 14px">
+  <div class="insight" id="insight">
+    <div class="insight-icon">⚡</div>
+    <div class="insight-body">
+      <div class="insight-title" id="insightTitle">Loading...</div>
+      <div class="insight-text" id="insightText"></div>
+    </div>
+  </div>
+</div>
+
+<main>
+  <div class="legend">
+    <span class="leg-lbl">Sinyal</span>
+    <div class="leg-item"><span class="badge bs2">LONG ↑↑</span><span class="leg-note">Bullish kuat</span></div>
+    <div class="leg-item"><span class="badge bs1">LONG ↑</span><span class="leg-note">Bullish moderat</span></div>
+    <div class="leg-item"><span class="badge bs0">NEUTRAL</span><span class="leg-note">Mixed</span></div>
+    <div class="leg-item"><span class="badge bsm1">SHORT ↓</span><span class="leg-note">Bearish moderat</span></div>
+    <div class="leg-item"><span class="badge bsm2">SHORT ↓↓</span><span class="leg-note">Bearish kuat</span></div>
+    <div class="leg-item"><span class="bna">—</span><span class="leg-note">Tidak relevan</span></div>
+    <span style="font-size:9px;color:var(--text3);margin-left:auto">Bar = estimasi probabilitas historis</span>
+  </div>
+  <div id="board"></div>
+</main>
+
+<footer>
+  <div class="disc"><b>Disclaimer:</b> Korelasi adalah kecenderungan historis, bukan kepastian mutlak. Selalu konfirmasi dengan multi-timeframe analysis dan konteks market saat ini.</div>
+</footer>
+
+<script>
+/* ── DATA ── */
+const IND_GROUPS = [
+  { id:'crypto', label:'Crypto Market', inds:[
+    {id:'TOTAL',    desc:'Total crypto mkt cap naik'},
+    {id:'TOTAL2',   desc:'Crypto ex-BTC naik'},
+    {id:'TOTAL3',   desc:'Crypto ex-BTC & ETH naik'},
+    {id:'OTHERS',   desc:'Altcoin caps naik'},
+    {id:'OTHERS.D', desc:'Alt dominance naik'},
+  ]},
+  { id:'fxsent', label:'FX & Sentiment', inds:[
+    {id:'DXY',  desc:'Dollar index (DXY) naik'},
+    {id:'VIX',  desc:'Fear gauge (VIX) naik'},
+    {id:'MOVE', desc:'Bond volatility (MOVE) naik'},
+  ]},
+  { id:'bonds', label:'Bonds', inds:[
+    {id:'US02Y', desc:'US 2Y yield naik'},
+    {id:'US10Y', desc:'US 10Y yield naik'},
+  ]},
+  { id:'macro', label:'Macro FRED', inds:[
+    {id:'WALCL',    desc:'Fed balance sheet naik'},
+    {id:'RRPONTSY', desc:'Reverse repo naik'},
+    {id:'PCEPILFE', desc:'Core PCE naik'},
+    {id:'CPIAUCSL', desc:'CPI naik'},
+    {id:'WTREGEN',  desc:'Treasury reserves naik'},
+    {id:'UNRATE',   desc:'Unemployment naik'},
+    {id:'FEDFUNDS', desc:'Fed funds rate naik'},
+    {id:'M2SL',     desc:'M2 money supply naik'},
+    {id:'GDPC1',    desc:'Real GDP naik'},
+    {id:'RECPROUS', desc:'Recession probability naik'},
+    {id:'T5YIE',    desc:'5Y breakeven inflation naik'},
+    {id:'HG1',      desc:'Copper futures naik'},
+  ]},
+];
+
+/* Correlation scores: -2 to +2 */
+const C = {
+  'TOTAL':    {BTC:2,ETH:2,ALT:2},
+  'TOTAL2':   {BTC:0,ETH:2,ALT:2},
+  'TOTAL3':   {BTC:0,ETH:0,ALT:2},
+  'OTHERS':   {BTC:-1,ETH:0,ALT:2},
+  'OTHERS.D': {BTC:-1,ETH:0,ALT:2},
+  'DXY': {BTC:-1,ETH:-1,ALT:-1,GOLD:-2,SILVER:-1,OIL:-1,COPPER:-1,EURUSD:-2,USDJPY:1,EURJPY:0,EURAUD:1,AUDJPY:-1,CADJPY:-1,EURCAD:0,AUDCAD:0,AUDUSD:-2,GBPCAD:0,USDCAD:1,GBPUSD:-1,EURGBP:0,USDCHF:1,NZDJPY:-1,AUDCHF:-2,AUDNZD:0,CHFJPY:0,EURCHF:0,EURNZD:1,GBPAUD:1,SPY:0,QQQ:-1},
+  'VIX': {BTC:-2,ETH:-2,ALT:-2,GOLD:1,SILVER:0,OIL:-1,COPPER:-2,EURUSD:-1,USDJPY:-2,EURJPY:-2,EURAUD:1,AUDJPY:-2,CADJPY:-2,EURCAD:1,AUDCAD:-1,AUDUSD:-1,GBPCAD:-1,USDCAD:1,GBPUSD:-1,EURGBP:1,USDCHF:-1,NZDJPY:-2,AUDCHF:-2,AUDNZD:0,CHFJPY:-1,EURCHF:-1,EURNZD:1,GBPAUD:1,SPY:-2,QQQ:-2},
+  'MOVE': {BTC:-1,ETH:-1,ALT:-1,GOLD:0,SILVER:-1,OIL:-1,COPPER:-1,EURUSD:-1,USDJPY:0,EURJPY:-1,EURAUD:0,AUDJPY:-1,CADJPY:-1,EURCAD:0,AUDCAD:-1,AUDUSD:-1,GBPCAD:-1,USDCAD:1,GBPUSD:-1,EURGBP:0,USDCHF:0,NZDJPY:-1,AUDCHF:-1,AUDNZD:0,CHFJPY:0,EURCHF:-1,EURNZD:0,GBPAUD:0,SPY:-1,QQQ:-1},
+  'US02Y': {BTC:-1,ETH:-1,ALT:-1,GOLD:-1,SILVER:-1,OIL:0,COPPER:0,EURUSD:-2,USDJPY:2,EURJPY:1,EURAUD:1,AUDJPY:1,CADJPY:1,EURCAD:-1,AUDCAD:-1,AUDUSD:-1,GBPCAD:-1,USDCAD:1,GBPUSD:-1,EURGBP:0,USDCHF:2,NZDJPY:1,AUDCHF:-1,AUDNZD:0,CHFJPY:1,EURCHF:1,EURNZD:0,GBPAUD:0,SPY:-1,QQQ:-2},
+  'US10Y': {BTC:-1,ETH:-1,ALT:-1,GOLD:-2,SILVER:-1,OIL:0,COPPER:0,EURUSD:-1,USDJPY:2,EURJPY:1,EURAUD:0,AUDJPY:1,CADJPY:1,EURCAD:-1,AUDCAD:-1,AUDUSD:-1,GBPCAD:0,USDCAD:1,GBPUSD:-1,EURGBP:0,USDCHF:1,NZDJPY:1,AUDCHF:-1,AUDNZD:0,CHFJPY:1,EURCHF:0,EURNZD:0,GBPAUD:0,SPY:-1,QQQ:-2},
+  'WALCL': {BTC:2,ETH:2,ALT:2,GOLD:2,SILVER:2,OIL:1,COPPER:1,EURUSD:1,USDJPY:-1,EURJPY:1,EURAUD:-1,AUDJPY:2,CADJPY:1,EURCAD:0,AUDCAD:1,AUDUSD:2,GBPCAD:1,USDCAD:-1,GBPUSD:1,EURGBP:0,USDCHF:-1,NZDJPY:2,AUDCHF:2,AUDNZD:0,CHFJPY:1,EURCHF:1,EURNZD:1,GBPAUD:-1,SPY:2,QQQ:2},
+  'RRPONTSY': {BTC:-1,ETH:-1,ALT:-1,GOLD:-1,SILVER:-1,OIL:0,COPPER:-1,EURUSD:-1,USDJPY:1,EURJPY:-1,EURAUD:0,AUDJPY:-1,CADJPY:-1,EURCAD:0,AUDCAD:-1,AUDUSD:-1,GBPCAD:-1,USDCAD:1,GBPUSD:-1,EURGBP:0,USDCHF:1,NZDJPY:-1,AUDCHF:-1,AUDNZD:0,CHFJPY:0,EURCHF:-1,EURNZD:-1,GBPAUD:0,SPY:-1,QQQ:-1},
+  'PCEPILFE': {BTC:-1,ETH:-1,ALT:-1,GOLD:0,SILVER:0,OIL:1,COPPER:0,EURUSD:-1,USDJPY:1,EURJPY:0,EURAUD:0,AUDJPY:0,CADJPY:0,EURCAD:0,AUDCAD:0,AUDUSD:-1,GBPCAD:0,USDCAD:1,GBPUSD:-1,EURGBP:0,USDCHF:1,NZDJPY:0,AUDCHF:-1,AUDNZD:0,CHFJPY:0,EURCHF:0,EURNZD:0,GBPAUD:0,SPY:-1,QQQ:-1},
+  'CPIAUCSL': {BTC:-1,ETH:-1,ALT:-1,GOLD:1,SILVER:1,OIL:1,COPPER:1,EURUSD:-1,USDJPY:1,EURJPY:0,EURAUD:0,AUDJPY:0,CADJPY:0,EURCAD:0,AUDCAD:0,AUDUSD:-1,GBPCAD:0,USDCAD:0,GBPUSD:-1,EURGBP:0,USDCHF:0,NZDJPY:0,AUDCHF:-1,AUDNZD:0,CHFJPY:0,EURCHF:0,EURNZD:0,GBPAUD:0,SPY:-1,QQQ:-1},
+  'WTREGEN': {BTC:-1,ETH:-1,ALT:-1,GOLD:-1,SILVER:-1,OIL:0,COPPER:-1,EURUSD:-1,USDJPY:1,EURJPY:-1,EURAUD:0,AUDJPY:-1,CADJPY:-1,EURCAD:0,AUDCAD:-1,AUDUSD:-1,GBPCAD:-1,USDCAD:1,GBPUSD:-1,EURGBP:0,USDCHF:1,NZDJPY:-1,AUDCHF:-1,AUDNZD:0,CHFJPY:0,EURCHF:-1,EURNZD:0,GBPAUD:0,SPY:-1,QQQ:-1},
+  'UNRATE': {BTC:-1,ETH:-1,ALT:-1,GOLD:1,SILVER:0,OIL:-1,COPPER:-2,EURUSD:0,USDJPY:-1,EURJPY:-1,EURAUD:0,AUDJPY:-2,CADJPY:-2,EURCAD:1,AUDCAD:-1,AUDUSD:-1,GBPCAD:0,USDCAD:1,GBPUSD:0,EURGBP:0,USDCHF:-1,NZDJPY:-2,AUDCHF:-1,AUDNZD:0,CHFJPY:-1,EURCHF:-1,EURNZD:0,GBPAUD:0,SPY:-1,QQQ:-1},
+  'FEDFUNDS': {BTC:-2,ETH:-2,ALT:-2,GOLD:-1,SILVER:-1,OIL:0,COPPER:0,EURUSD:-2,USDJPY:2,EURJPY:1,EURAUD:1,AUDJPY:1,CADJPY:1,EURCAD:-1,AUDCAD:-1,AUDUSD:-2,GBPCAD:-1,USDCAD:2,GBPUSD:-1,EURGBP:0,USDCHF:2,NZDJPY:1,AUDCHF:-1,AUDNZD:0,CHFJPY:1,EURCHF:1,EURNZD:-1,GBPAUD:0,SPY:-1,QQQ:-2},
+  'M2SL': {BTC:2,ETH:2,ALT:2,GOLD:2,SILVER:1,OIL:1,COPPER:1,EURUSD:1,USDJPY:-1,EURJPY:0,EURAUD:-1,AUDJPY:1,CADJPY:1,EURCAD:0,AUDCAD:1,AUDUSD:1,GBPCAD:1,USDCAD:-1,GBPUSD:1,EURGBP:0,USDCHF:-1,NZDJPY:1,AUDCHF:1,AUDNZD:0,CHFJPY:0,EURCHF:0,EURNZD:0,GBPAUD:-1,SPY:2,QQQ:2},
+  'GDPC1': {BTC:1,ETH:1,ALT:1,GOLD:-1,SILVER:1,OIL:2,COPPER:2,EURUSD:0,USDJPY:1,EURJPY:1,EURAUD:-1,AUDJPY:2,CADJPY:2,EURCAD:-1,AUDCAD:0,AUDUSD:1,GBPCAD:-1,USDCAD:-1,GBPUSD:1,EURGBP:0,USDCHF:1,NZDJPY:1,AUDCHF:1,AUDNZD:1,CHFJPY:1,EURCHF:1,EURNZD:-1,GBPAUD:-1,SPY:2,QQQ:2},
+  'RECPROUS': {BTC:-2,ETH:-2,ALT:-2,GOLD:2,SILVER:-1,OIL:-2,COPPER:-2,EURUSD:-1,USDJPY:-2,EURJPY:-2,EURAUD:1,AUDJPY:-2,CADJPY:-2,EURCAD:1,AUDCAD:-1,AUDUSD:-1,GBPCAD:-1,USDCAD:1,GBPUSD:-1,EURGBP:1,USDCHF:-1,NZDJPY:-2,AUDCHF:-2,AUDNZD:0,CHFJPY:-1,EURCHF:-1,EURNZD:1,GBPAUD:1,SPY:-2,QQQ:-2},
+  'T5YIE': {BTC:1,ETH:0,ALT:0,GOLD:2,SILVER:1,OIL:1,COPPER:1,EURUSD:0,USDJPY:1,EURJPY:0,EURAUD:0,AUDJPY:0,CADJPY:0,EURCAD:0,AUDCAD:0,AUDUSD:0,GBPCAD:0,USDCAD:0,GBPUSD:0,EURGBP:0,USDCHF:0,NZDJPY:0,AUDCHF:0,AUDNZD:0,CHFJPY:0,EURCHF:0,EURNZD:0,GBPAUD:0,SPY:-1,QQQ:-1},
+  'HG1': {BTC:1,ETH:1,ALT:0,GOLD:-1,SILVER:1,OIL:1,COPPER:2,EURUSD:1,USDJPY:1,EURJPY:1,EURAUD:-2,AUDJPY:2,CADJPY:1,EURCAD:-1,AUDCAD:1,AUDUSD:2,GBPCAD:0,USDCAD:-1,GBPUSD:1,EURGBP:0,USDCHF:0,NZDJPY:1,AUDCHF:2,AUDNZD:1,CHFJPY:1,EURCHF:0,EURNZD:-1,GBPAUD:-2,SPY:1,QQQ:1},
+};
+
+/* REASONS per asset per indicator — plain Bahasa Indonesia */
+const REASONS = {
+  'BTC':{
+    'TOTAL':'Kapitalisasi total naik artinya fresh money masuk ke crypto secara keseluruhan — BTC biasanya ikut naik.',
+    'TOTAL2':'Alts & ETH naik tapi BTC bisa netral atau tertekan karena rotasi keluar dari BTC.',
+    'TOTAL3':'Full altcoin season. Dana bergerak ke small caps, BTC tidak diuntungkan.',
+    'OTHERS':'Rotasi ke altcoin kecil → BTC sering jadi sumber likuiditas yang dijual.',
+    'OTHERS.D':'Dominance alt naik → uang keluar dari BTC masuk ke alts.',
+    'DXY':'Dollar kuat → semua aset risk tertekan termasuk BTC, karena BTC dihargai dalam USD.',
+    'VIX':'Fear tinggi → investor kabur dari risk assets. BTC salah satu yang paling cepat dijual.',
+    'MOVE':'Ketidakpastian suku bunga tinggi → likuiditas ketat, tekanan ke semua risk assets termasuk BTC.',
+    'US02Y':'Yield 2Y naik → Fed hawkish diprediksi → USD kuat → BTC turun.',
+    'US10Y':'Rate jangka panjang naik → cost of capital naik, risk assets kurang menarik.',
+    'WALCL':'Fed cetak uang (balance sheet naik) → likuiditas banjir → BTC naik kuat.',
+    'RRPONTSY':'Dana diparkir di Fed → likuiditas mengering di pasar → BTC turun.',
+    'PCEPILFE':'Inflasi sticky → Fed kemungkinan tetap hawkish → BTC tertekan.',
+    'CPIAUCSL':'Inflasi naik → Fed kemungkinan naikkan rate → tekanan ke BTC jangka pendek.',
+    'WTREGEN':'Treasury drain likuiditas dari banking system → risk assets turun termasuk BTC.',
+    'UNRATE':'Ekonomi melemah → investor hindari risk assets termasuk BTC.',
+    'FEDFUNDS':'Rate naik langsung → USD menguat, likuiditas ketat → BTC paling terdampak.',
+    'M2SL':'Lebih banyak uang beredar → sebagian masuk ke BTC, tapi dengan lag 6-12 bulan.',
+    'GDPC1':'Ekonomi kuat → risk-on mood → BTC ikut naik moderat.',
+    'RECPROUS':'Risiko resesi tinggi → semua risk assets dijual, BTC paling parah.',
+    'T5YIE':'Ekspektasi inflasi naik → real yield turun → BTC sebagai hard asset sedikit diuntungkan.',
+    'HG1':'Copper naik = global growth bagus → risk-on → BTC ikut naik ringan.',
+  },
+  'ETH':{
+    'DXY':'Dollar kuat → semua crypto tertekan, ETH tidak terkecuali.',
+    'VIX':'Fear tinggi → ETH dijual cepat, lebih volatile dari BTC saat risk-off.',
+    'WALCL':'Likuiditas banjir → ETH naik, seringkali lebih kencang dari BTC karena beta lebih tinggi.',
+    'FEDFUNDS':'Rate naik → likuiditas ketat, ETH lebih tertekan karena dianggap lebih berisiko dari BTC.',
+    'M2SL':'M2 naik → uang beredar lebih banyak → ETH naik, biasanya lebih agresif dari BTC.',
+    'RECPROUS':'Resesi → sell-off besar, ETH ikut turun tajam.',
+    'default':'Korelasi serupa dengan BTC tapi dengan volatilitas lebih tinggi.',
+  },
+  'ALT':{
+    'TOTAL':'Semua crypto naik → alt season → altcoins outperform.',
+    'TOTAL2':'ETH & alts memimpin → altcoins langsung naik.',
+    'TOTAL3':'Full alt season → small caps crypto paling diuntungkan.',
+    'OTHERS':'Rotasi ke small caps → alts naik paling kencang.',
+    'OTHERS.D':'Alt dominance naik → ini definisi alt season, alts outperform semua aset.',
+    'VIX':'Fear tinggi → altcoin paling cepat dijual, biasanya turun 2x lipat BTC.',
+    'FEDFUNDS':'Rate naik → likuiditas hilang, alts paling tidak disukai karena paling berisiko.',
+    'WALCL':'Likuiditas banjir → alts bisa naik 3-10x lebih kencang dari BTC.',
+    'RECPROUS':'Resesi → alts crash paling dalam, sering -70% atau lebih.',
+    'default':'Altcoin sangat sensitif terhadap likuiditas global dan sentimen risk.',
+  },
+  'GOLD':{
+    'DXY':'Gold dihargai dalam USD → dollar kuat → gold turun. Korelasi negatif paling kuat.',
+    'VIX':'Fear naik → gold naik sebagai safe haven klasik.',
+    'US10Y':'Real yield naik → opportunity cost memegang gold (yang tidak berbunga) naik → gold turun.',
+    'WALCL':'QE/likuiditas banjir → gold naik sebagai hedge inflasi.',
+    'RECPROUS':'Resesi → investor beli gold sebagai aset aman tertua di dunia.',
+    'T5YIE':'Ekspektasi inflasi naik → real yield turun → gold paling diuntungkan.',
+    'FEDFUNDS':'Rate naik → USD kuat, real yield naik → gold tertekan.',
+    'UNRATE':'Ekonomi melemah → resesi risk → gold naik sebagai safe haven.',
+    'CPIAUCSL':'Inflasi naik → gold naik sebagai hedge inflasi jangka pendek.',
+    'default':'Gold bergerak berlawanan dengan USD dan real yield.',
+  },
+  'SILVER':{
+    'DXY':'Silver dihargai dalam USD → dollar kuat → silver ikut turun.',
+    'WALCL':'Likuiditas banjir → silver naik, biasanya lebih agresif dari gold.',
+    'CPIAUCSL':'Inflasi naik → silver naik sebagai logam industri dan hedge inflasi.',
+    'default':'Silver mengikuti gold tapi dengan tambahan sensitivitas terhadap industrial demand.',
+  },
+  'OIL':{
+    'DXY':'Oil dihargai dalam USD → dollar kuat → oil turun (beli oil jadi lebih mahal bagi negara lain).',
+    'GDPC1':'GDP naik → permintaan energi global naik → oil naik.',
+    'RECPROUS':'Resesi → permintaan oil turun drastis → oil crash.',
+    'VIX':'Risk-off → demand outlook turun → oil turun.',
+    'default':'Oil mengikuti global growth dan supply/demand global.',
+  },
+  'COPPER':{
+    'DXY':'Copper dihargai dalam USD → dollar kuat → copper turun.',
+    'VIX':'Fear tinggi → resesi expectation naik → copper turun tajam (demand industri diasumsikan turun).',
+    'GDPC1':'GDP naik → konstruksi & manufaktur naik → permintaan copper melonjak.',
+    'RECPROUS':'Resesi → permintaan industri collapse → copper crash.',
+    'HG1':'Copper naik → ini langsung menunjukkan global growth kuat.',
+    'default':'Copper = barometer kesehatan ekonomi global. Naik = dunia tumbuh.',
+  },
+  'SPY':{
+    'DXY':'Dollar kuat bisa netral untuk S&P tapi earnings multinasional tertekan → mixed.',
+    'VIX':'Fear naik → equities dijual langsung. VIX dan SPY selalu berlawanan.',
+    'WALCL':'QE → likuiditas naik → saham AS naik kuat.',
+    'FEDFUNDS':'Rate naik → valuasi saham (P/E) tertekan → SPY turun.',
+    'RECPROUS':'Resesi → earnings turun → SPY crash.',
+    'M2SL':'Lebih banyak uang di sistem → sebagian masuk ke equities.',
+    'GDPC1':'Ekonomi kuat → earnings bagus → SPY naik.',
+    'default':'Equities sangat sensitif terhadap earnings, rate, dan sentimen ekonomi.',
+  },
+  'QQQ':{
+    'DXY':'Dollar kuat → earnings tech multinasional turun + valuasi growth tertekan.',
+    'VIX':'Fear naik → tech dijual duluan, QQQ lebih volatile dari SPY.',
+    'WALCL':'Likuiditas banjir → QQQ naik kencang karena tech adalah beta tertinggi.',
+    'FEDFUNDS':'Rate naik → growth stocks sangat terdampak karena DCF-nya jauh ke depan.',
+    'US10Y':'Rate jangka panjang naik → present value future earnings turun → QQQ tertekan.',
+    'RECPROUS':'Resesi → QQQ turun lebih dalam dari SPY karena premium valuasi.',
+    'default':'Nasdaq sangat sensitif terhadap real yield dan sentimen growth.',
+  },
+};
+
+/* FX Pair reasons — generic by pattern */
+function getFXReason(id, ind, score, dir) {
+  const dirWord = dir === 1 ? 'naik' : 'turun';
+  const base = id.slice(0,3), quote = id.slice(3,6);
+  const USD_PAIRS = ['EURUSD','AUDUSD','GBPUSD','AUDUSD'];
+  const USD_BASE  = ['USDJPY','USDCAD','USDCHF'];
+
+  if (score === 0) return 'Dampak terbatas atau saling meniadakan pada pair ini.';
+  if (score === null) return 'Tidak ada korelasi signifikan yang teridentifikasi.';
+
+  const bullish = score > 0;
+  const strong  = Math.abs(score) === 2;
+
+  /* Special pair logic */
+  if (ind === 'DXY') {
+    if (dir === 1) {
+      if (id==='EURUSD'||id==='AUDUSD') return `Dollar menguat → ${base} melemah terhadap USD. Pair ini turun${strong?' kuat':''}.`;
+      if (id==='USDJPY'||id==='USDCAD'||id==='USDCHF') return `Dollar menguat → USD menguat terhadap ${quote}. Pair ini naik.`;
+      if (id==='AUDCHF') return 'DXY naik → AUD lemah (risk-off) + CHF kuat (safe haven) → AUDCHF turun kuat.';
+    } else {
+      if (id==='EURUSD'||id==='AUDUSD') return `Dollar melemah → ${base} menguat terhadap USD. Pair ini naik${strong?' kuat':''}.`;
+      if (id==='USDJPY'||id==='USDCAD') return `Dollar melemah → USD melemah terhadap ${quote}. Pair ini turun.`;
+    }
+  }
+  if (ind === 'VIX') {
+    if (dir === 1) {
+      if (['AUDJPY','CADJPY','NZDJPY'].includes(id)) return `Fear naik → risk-off besar. ${base} (risk) dijual, JPY (safe haven) dibeli. Pair ini turun${strong?' sangat kuat':''}.`;
+      if (['AUDCHF','EURCHF'].includes(id)) return `Fear naik → ${base} dijual, CHF dibeli sebagai safe haven. Pair ini turun${strong?' kuat':''}.`;
+      if (id==='USDJPY') return 'Fear naik → JPY dibeli kuat sebagai safe haven → USD/JPY turun tajam.';
+      if (id==='GOLD') return 'Fear naik → gold naik sebagai safe haven.';
+      if (['EURAUD','EURGBP','EURCAD'].includes(id)) return `Risk-off → ${quote} (risk currency) dijual → pair ini naik karena numerator lebih kuat relatif.`;
+    }
+  }
+  if ((ind==='WALCL'||ind==='M2SL') && dir===1) {
+    if (['AUDJPY','NZDJPY','CADJPY'].includes(id)) return `Likuiditas banjir → risk-on → ${base} (risk currency) naik, JPY (safe haven) melemah. Pair ini naik${strong?' kuat':''}.`;
+    if (id==='AUDCHF') return 'Likuiditas naik → AUD (risk) naik, CHF (safe haven) melemah → AUDCHF naik kuat.';
+    if (id==='AUDUSD') return 'Likuiditas naik → risk-on → AUD naik terhadap USD.';
+  }
+  if ((ind==='US02Y'||ind==='US10Y'||ind==='FEDFUNDS') && dir===1) {
+    if (id==='USDJPY') return `US yield/rate naik → USD menguat terhadap JPY yang rate-nya masih rendah. USDJPY naik${strong?' kuat':''}.`;
+    if (id==='USDCHF') return `US yield naik → USD lebih menarik dari CHF (yield rendah) → USDCHF naik${strong?' kuat':''}.`;
+    if (id==='EURUSD') return `US yield naik → USD menjadi lebih menarik dari EUR → EURUSD turun${strong?' kuat':''}.`;
+    if (id==='AUDUSD') return 'US yield naik → USD kuat, AUD tertekan → AUDUSD turun.';
+  }
+  if (ind==='UNRATE' && dir===1) {
+    if (['AUDJPY','CADJPY','NZDJPY'].includes(id)) return `Pengangguran naik → resesi risk → risk-off → ${base} dijual, JPY dibeli. Pair ini turun kuat.`;
+  }
+  if (ind==='GDPC1' && dir===1) {
+    if (['AUDJPY','CADJPY'].includes(id)) return `GDP naik → global growth kuat → risk-on → ${base} (commodity currency) naik vs JPY. Pair ini naik kuat.`;
+    if (id==='EURAUD') return 'GDP kuat → AUD (commodity currency) outperform EUR → EURAUD turun.';
+  }
+  if (ind==='HG1' && dir===1) {
+    if (id==='AUDUSD') return 'Copper naik = global growth kuat → AUD (currency copper terbesar) naik kuat terhadap USD.';
+    if (id==='AUDCHF') return 'Copper naik → AUD naik kuat, CHF melemah → AUDCHF naik kuat.';
+    if (id==='EURAUD') return 'Copper naik → AUD outperform → EURAUD turun kuat.';
+    if (id==='GBPAUD') return 'Copper naik → AUD naik tajam → GBPAUD turun kuat.';
+    if (['AUDJPY','CADJPY'].includes(id)) return `Copper naik → global growth → ${base} naik kuat vs JPY.`;
+  }
+
+  // Generic fallback
+  const direction = bullish ? 'naik' : 'turun';
+  const strength  = strong ? 'kuat ' : '';
+  return `Berdasarkan korelasi historis, ${id} cenderung ${direction} ${strength}saat ${ind} ${dirWord}.`;
+}
+
+function getAssetReason(id, ind, score, dir) {
+  if (score === null || score === 0) return null;
+  const map = REASONS[id];
+  if (map) {
+    return map[ind] || map['default'] || null;
+  }
+  // FX pairs
+  if (id.length === 6) return getFXReason(id, ind, score, dir);
+  return null;
+}
+
+/* INSIGHT texts per indicator+direction */
+const INSIGHTS = {
+  'TOTAL+1':    ['🌊 Seluruh Crypto Bullish','Kapitalisasi total crypto naik menunjukkan fresh money masuk ke seluruh pasar. Ini sinyal bullish paling luas — BTC, ETH, dan altcoin semua cenderung naik bersamaan. Biasanya dipicu oleh naiknya selera risiko global atau berita positif besar di crypto.'],
+  'TOTAL-1':    ['📉 Pasar Crypto Tertekan','Kapitalisasi total turun → fresh money keluar dari crypto. Semua segmen crypto bisa turun bersamaan. Waspadai breakdown support utama.'],
+  'TOTAL2+1':   ['🔄 ETH & Alts Memimpin','Crypto ex-BTC naik → ETH dan altcoin mengambil alih kepemimpinan dari BTC. BTC bisa tertinggal atau bahkan turun karena rotasi keluar.'],
+  'TOTAL3+1':   ['🎰 Full Altcoin Season','Crypto ex-BTC dan ETH naik → small cap altcoins sedang dalam mode outperform. Ini adalah fase paling berisiko tapi juga paling menguntungkan dari siklus crypto.'],
+  'OTHERS+1':   ['🔃 Rotasi ke Small Caps','Kapitalisasi altcoin naik → uang bergerak dari large caps (BTC) ke small caps. BTC bisa jadi sumber likuiditas yang dijual.'],
+  'OTHERS.D+1': ['🚀 Alt Dominance Naik','Dominance altcoin naik → proporsi pasar yang dipegang altcoin makin besar. Ini sinyal kuat alt season, BTC underperform.'],
+  'DXY+1':      ['💵 Dollar Menguat — Risk Off','DXY naik menekan hampir semua aset risiko. Dollar yang kuat membuat komoditas, EM FX, dan crypto relatif lebih mahal bagi investor non-USD. Ini "master switch" pasar global — saat DXY naik, sebagian besar aset risk akan tertekan.'],
+  'DXY-1':      ['💵 Dollar Melemah — Risk On','DXY turun → kondisi keuangan global melonggar. Komoditas, EM FX, crypto, dan equities cenderung naik. Ini adalah kondisi yang paling menguntungkan untuk risk assets secara luas.'],
+  'VIX+1':      ['😱 Fear Naik — Risk Off Penuh','VIX naik artinya pasar ketakutan. Investor keluar dari semua aset risiko: jual crypto, jual saham, jual commodity. Uang masuk ke safe haven: gold, JPY, CHF, bonds. Semakin tinggi VIX, semakin dalam jualannya.'],
+  'VIX-1':      ['😌 Fear Turun — Risk On','VIX turun → kepercayaan pasar kembali. Risk assets kembali dibeli: crypto, saham, commodity, dan risk FX seperti AUD dan NZD cenderung naik.'],
+  'MOVE+1':     ['📊 Bond Vol Tinggi — Ketidakpastian Rate','MOVE index naik artinya pasar tidak yakin arah suku bunga. Ketidakpastian ini membuat investor menghindari risk assets. Saat tidak ada yang tahu arah Fed, semua orang jaga cash.'],
+  'MOVE-1':     ['📊 Bond Vol Turun — Kepastian Lebih Tinggi','MOVE turun → pasar lebih yakin soal arah rate → risk assets bisa bernapas lega dan kembali dibeli.'],
+  'US02Y+1':    ['📈 2Y Yield Naik — Fed Hawkish Diprediksi','Yield 2Y sangat sensitif terhadap ekspektasi Fed. Naik → pasar memprediksi Fed akan lebih agresif naikkan rate → USD menguat, gold & crypto turun, USDJPY naik.'],
+  'US02Y-1':    ['📈 2Y Yield Turun — Fed Pivot Diantisipasi','Yield 2Y turun → pasar mulai memprediksi Fed akan turunkan rate → USD melemah, gold & crypto naik, USDJPY turun.'],
+  'US10Y+1':    ['📈 10Y Yield Naik — Rate Jangka Panjang Mahal','Yield 10Y naik → biaya pinjaman jangka panjang naik → growth stocks (QQQ) dan gold paling terdampak. USDJPY naik karena diferensial rate AS vs Jepang melebar.'],
+  'US10Y-1':    ['📈 10Y Yield Turun — Kondisi Finansial Melonggar','Yield 10Y turun → cost of capital turun → growth stocks dan gold naik. USDJPY cenderung turun.'],
+  'WALCL+1':    ['🏦 Fed QE — Likuiditas Banjir','Fed balance sheet naik artinya Fed sedang cetak uang / beli aset (QE). Ini menyuntikkan likuiditas ke sistem keuangan → semua risk assets naik: BTC, gold, SPY, QQQ. Ini adalah kondisi paling bullish untuk semua aset.'],
+  'WALCL-1':    ['🏦 Fed QT — Likuiditas Menyusut','Fed balance sheet turun (QT) → Fed menarik likuiditas dari pasar → tekanan ke semua risk assets.'],
+  'RRPONTSY+1': ['🏦 Reverse Repo Naik — Likuiditas Mengering','Bank dan money market funds memarkir uang ke Fed daripada deploy ke pasar. Ini tanda likuiditas yang seharusnya mengalir ke risk assets malah "tersedot" → risk assets turun.'],
+  'RRPONTSY-1': ['🏦 Reverse Repo Turun — Likuiditas Kembali ke Pasar','Uang ditarik dari Fed dan kembali ke pasar → likuiditas meningkat → kondisi lebih mendukung untuk risk assets.'],
+  'PCEPILFE+1': ['🔥 Core PCE Naik — Inflasi Sticky','Inflasi inti yang sticky membuat Fed tidak bisa turunkan rate. Ekspektasi hawkish yang berkepanjangan menekan crypto dan growth stocks. "Higher for longer" adalah musuh risk assets.'],
+  'PCEPILFE-1': ['🔥 Core PCE Turun — Inflasi Mereda','Inflasi inti turun → Fed punya ruang untuk pivot → ekspektasi dovish → risk assets naik.'],
+  'CPIAUCSL+1': ['📊 CPI Naik — Inflasi Naik','CPI naik → komoditas biasanya naik jangka pendek sebagai hedge. Tapi bonds dan growth stocks turun karena ekspektasi rate naik. Efek campuran tergantung seberapa tinggi CPI vs ekspektasi.'],
+  'CPIAUCSL-1': ['📊 CPI Turun — Inflasi Mereda','CPI turun → tekanan inflasi berkurang → Fed bisa lebih dovish → risk assets naik, terutama growth stocks dan bonds.'],
+  'WTREGEN+1':  ['🏛️ Treasury Reserves Naik — Likuiditas Tersedot','Pemerintah AS menumpuk cash di rekening Fed → ini menyedot likuiditas dari sistem perbankan → efek seperti QT mini → risk assets tertekan.'],
+  'WTREGEN-1':  ['🏛️ Treasury Spending Meningkat','Treasury mengeluarkan uang → likuiditas kembali ke sistem perbankan → kondisi keuangan melonggar → risk assets bisa naik.'],
+  'UNRATE+1':   ['👷 Pengangguran Naik — Ekonomi Melemah','Unemployment naik = lapangan kerja berkurang = ekonomi melambat. Ini memicu resesi risk: gold naik sebagai safe haven, komoditas industrial (copper, oil) turun tajam, risk FX seperti AUD dan CAD melemah terhadap JPY.'],
+  'UNRATE-1':   ['👷 Pengangguran Turun — Ekonomi Kuat','Employment kuat → ekonomi sehat → risk-on → komoditas industrial naik, risk FX naik.'],
+  'FEDFUNDS+1': ['🏦 Fed Rate Naik — Pengetatan Moneter','Ini sinyal paling langsung: Fed naikkan rate → USD menguat tajam → crypto paling tertekan (tidak ada yield) → USDJPY dan USDCHF naik → gold tertekan. "Don\'t fight the Fed."'],
+  'FEDFUNDS-1': ['🏦 Fed Rate Turun — Pivot / Pelonggaran','Fed turunkan rate → cost of capital turun → risk assets rally: crypto, gold, equities semua naik. Ini biasanya memicu rally besar.'],
+  'M2SL+1':     ['💰 M2 Naik — Uang Beredar Bertambah','Lebih banyak uang di sistem → sebagian mencari return → masuk ke BTC dan gold. Efeknya datang dengan lag 6-12 bulan, jadi ini sinyal leading untuk pergerakan besar ke depan.'],
+  'M2SL-1':     ['💰 M2 Turun — Uang Beredar Berkurang','Money supply turun → likuiditas berkurang → tekanan ke risk assets jangka menengah.'],
+  'GDPC1+1':    ['📊 Real GDP Naik — Ekonomi Tumbuh Kuat','GDP naik → permintaan komoditas naik (oil, copper) → risk currencies (AUD, CAD) naik → equities bagus. Lingkungan paling ideal untuk aset siklus dan industrial.'],
+  'GDPC1-1':    ['📊 Real GDP Melemah — Pertumbuhan Melambat','GDP turun → demand komoditas turun → risk-off → safe haven outperform.'],
+  'RECPROUS+1': ['⚠️ Resesi Probability Naik — Maximum Risk-Off','Ini alarm terbesar: probabilitas resesi naik → investor masuk mode perlindungan total. Gold naik sebagai safe haven tertua, semua risk assets (crypto, oil, copper, equities) turun parah, JPY dan CHF kuat.'],
+  'RECPROUS-1': ['✅ Resesi Risk Turun — Kepercayaan Kembali','Probability resesi turun → investor percaya ekonomi aman → risk-on kembali → semua risk assets naik.'],
+  'T5YIE+1':    ['📉 Inflasi Expectation Naik — Real Yield Turun','5Y breakeven naik → pasar memprediksi inflasi lebih tinggi → real yield (nominal - inflasi) turun → gold sangat diuntungkan. Juga positif untuk commodity dan sedikit positif untuk BTC.'],
+  'T5YIE-1':    ['📉 Inflasi Expectation Turun — Real Yield Naik','Breakeven turun → real yield naik → gold tertekan. Tapi bisa positif untuk bonds.'],
+  'HG1+1':      ['🔩 Copper Naik — Global Growth Bullish','Copper adalah barometer kesehatan ekonomi dunia. Naik → global demand kuat → AUD naik tajam (Australia exportir copper terbesar), JPY melemah (risk-on), equities naik, oil naik.'],
+  'HG1-1':      ['🔩 Copper Turun — Global Growth Melambat','Copper turun → sinyal demand global melemah → risk-off → AUD turun, JPY menguat, commodity tertekan.'],
+};
+
+function getInsight(ind, dir) {
+  const key = ind + (dir===1?'+1':'-1');
+  return INSIGHTS[key] || ['📡 Signal Active', `Analisis untuk ${ind} ${dir===1?'naik':'turun'}.`];
+}
+
+/* SECTIONS */
+const SECTIONS = [
+  { label:'Crypto', cols:3, assets:[{id:'BTC'},{id:'ETH'},{id:'ALT',sub:'Altcoins'}] },
+  { label:'Commodities', cols:4, assets:[
+    {id:'GOLD',sub:'XAU/USD'},{id:'SILVER',sub:'XAG/USD'},
+    {id:'OIL',sub:'WTI Crude'},{id:'COPPER',sub:'HG Futures'}
+  ]},
+  { label:'FX Pairs', cols:4, assets:
+    ['EURUSD','USDJPY','EURJPY','EURAUD','AUDJPY','CADJPY','EURCAD','AUDCAD',
+     'AUDUSD','GBPCAD','USDCAD','GBPUSD','EURGBP','USDCHF','NZDJPY','AUDCHF',
+     'AUDNZD','CHFJPY','EURCHF','EURNZD','GBPAUD'].map(id=>({id}))
+  },
+  { label:'Equity Index', cols:2, assets:[
+    {id:'SPY',sub:'S&P 500 ETF'},{id:'QQQ',sub:'Nasdaq 100 ETF'}
+  ]},
+];
+
+/* Probability % from score */
+function probPct(s) {
+  if (s === null) return null;
+  const map = {2:82, 1:65, 0:50, '-1':65, '-2':82};
+  return map[String(s)];
+}
+
+const state = { group:'fxsent', ind:'DXY', dir:1 };
+
+function getScore(id) {
+  const v = (C[state.ind]||{})[id];
+  return v === undefined ? null : v * state.dir;
+}
+
+function badgeHTML(s) {
+  if (s === null) return '<span class="bna">—</span>';
+  const map = {
+    2:  ['LONG ↑↑','bs2'], 1: ['LONG ↑','bs1'], 0: ['NEUTRAL','bs0'],
+    '-1':['SHORT ↓','bsm1'], '-2':['SHORT ↓↓','bsm2']
+  };
+  const [t, cls] = map[s] || ['NEUTRAL','bs0'];
+  return `<span class="badge ${cls}">${t}</span>`;
+}
+
+function probBarHTML(s) {
+  if (s === null) return '';
+  const pct = probPct(s);
+  const bull = s > 0, bear = s < 0, neut = s === 0;
+  const fillCls = bull ? 'pfill-bull' : bear ? 'pfill-bear' : 'pfill-neut';
+  const pctColor = bull ? 'var(--green)' : bear ? 'var(--red)' : 'var(--text3)';
+  const label = bull ? 'Prob naik' : bear ? 'Prob turun' : 'Netral';
+  return `<div class="prob-wrap">
+    <div class="prob-label">
+      <span class="prob-name">${label}</span>
+      <span class="prob-pct" style="color:${pctColor}">${pct}%</span>
+    </div>
+    <div class="prob-track"><div class="prob-fill ${fillCls}" style="width:${pct}%"></div></div>
+  </div>`;
+}
+
+function cardClass(s) {
+  if (s === 2) return 'card cs2';
+  if (s === -2) return 'card csm2';
+  return 'card';
+}
+
+function renderBoard() {
+  const grp = IND_GROUPS.find(g=>g.id===state.group)||IND_GROUPS[0];
+  const ind  = grp.inds.find(i=>i.id===state.ind)||grp.inds[0]||{};
+
+  document.getElementById('grpRow').innerHTML = IND_GROUPS.map(g=>{
+    const on = state.group===g.id;
+    return `<button class="grp-btn${on?' on':''}" onclick="setGroup('${g.id}')">${g.label}</button>`;
+  }).join('');
+
+  document.getElementById('indRow').innerHTML = grp.inds.map(i=>{
+    const on = state.ind===i.id;
+    return `<button class="ind-btn${on?' on':''}" onclick="setInd('${i.id}')">${i.id}</button>`;
+  }).join('');
+
+  const upOn=state.dir===1, dnOn=state.dir===-1;
+  document.getElementById('dirRow').innerHTML = `
+    <button class="dir-up${upOn?' on':''}" onclick="setDir(1)">▲ ${state.ind} Naik</button>
+    <button class="dir-dn${dnOn?' on':''}" onclick="setDir(-1)">▼ ${state.ind} Turun</button>
+    <span class="dir-desc">${ind.desc||''} ${state.dir===-1?'(turun)':''}</span>
+  `;
+
+  const [insTitle, insText] = getInsight(state.ind, state.dir);
+  document.getElementById('insightTitle').textContent = insTitle;
+  document.getElementById('insightText').textContent  = insText;
+
+  document.getElementById('board').innerHTML = SECTIONS.map(sec=>{
+    const cards = sec.assets.map(a=>{
+      const s = getScore(a.id);
+      const reason = getAssetReason(a.id, state.ind, s, state.dir);
+      return `<div class="${cardClass(s)}">
+        <div class="card-top">
+          <div>
+            <div class="card-id">${a.id}</div>
+            ${a.sub?`<div class="card-sub">${a.sub}</div>`:''}
+          </div>
+          ${badgeHTML(s)}
+        </div>
+        ${probBarHTML(s)}
+        ${reason&&s!==null&&s!==0?`<div class="prob-reason">${reason}</div>`:''}
+      </div>`;
+    }).join('');
+    return `<div class="sec">
+      <div class="sec-hdr">
+        <span class="sec-lbl">${sec.label}</span>
+        <div class="sec-line"></div>
+        <span class="sec-ct">${sec.assets.length}</span>
+      </div>
+      <div class="asset-grid g${sec.cols}">${cards}</div>
+    </div>`;
+  }).join('');
+}
+
+function setGroup(id) {
+  const g = IND_GROUPS.find(x=>x.id===id);
+  state.group=id; state.ind=g?g.inds[0].id:state.ind; state.dir=1;
+  renderBoard();
+}
+function setInd(id){ state.ind=id; state.dir=1; renderBoard(); }
+function setDir(d){ state.dir=d; renderBoard(); }
+
+renderBoard();
+</script>
+</body>
+</html>
