@@ -32,6 +32,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
   padding:0 16px;gap:12px;position:sticky;top:0;z-index:30;
 }
 .topbar-left{display:flex;align-items:center;gap:16px}
+.topbar-right{display:flex;align-items:center;gap:14px}
 .logo{display:flex;align-items:center;gap:7px}
 .logo-sq{
   width:22px;height:22px;background:var(--acc);border-radius:3px;
@@ -209,7 +210,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 .cal-title-group p{font-size:10px;color:var(--text3);margin-top:2px}
 .cal-filters-group{display:flex;gap:4px;flex-wrap:wrap}
 .cal-f-btn{
-  padding:0 10px;height:24px;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  padding:0 10px;height:25px;font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
   border:1px solid var(--border);border-radius:2px;cursor:pointer;background:transparent;
   color:var(--text3);font-family:var(--sans);transition:all .12s;
 }
@@ -219,7 +220,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 /* Category filters */
 .cat-filters{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--border)}
 .cat-f-btn{
-  padding:0 8px;height:20px;font-size:9px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+  padding:0 9px;height:21px;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
   border:1px solid var(--border);border-radius:1px;cursor:pointer;background:transparent;
   color:var(--text3);font-family:var(--mono);transition:all .12s;
 }
@@ -237,13 +238,13 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 .cal-tbl{width:100%;border-collapse:collapse}
 .cal-tbl thead tr{background:var(--bg3);border-bottom:2px solid var(--bord2)}
 .cal-tbl th{
-  padding:6px 10px;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--text3);font-family:var(--mono);text-align:left;white-space:nowrap;
+  padding:7px 10px;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--text2);font-family:var(--mono);text-align:left;white-space:nowrap;
   border-right:1px solid var(--border);
 }
 .cal-tbl th:last-child{border-right:none}
 .cal-tbl td{
-  padding:7px 10px;border-bottom:1px solid var(--border);
+  padding:9px 10px;border-bottom:1px solid var(--border);
   border-right:1px solid var(--border);vertical-align:top;
 }
 .cal-tbl td:last-child{border-right:none}
@@ -252,29 +253,30 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
   background:var(--bg3);padding:5px 10px;
   border-bottom:1px solid var(--bord2);
 }
-.day-header-text{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text2)}
-.day-today-badge{display:inline-block;margin-left:8px;padding:1px 6px;background:var(--acc);color:#000;font-family:var(--mono);font-size:8px;font-weight:700;border-radius:1px;letter-spacing:.1em;vertical-align:middle}
+.day-header-text{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text2)}
+.day-today-badge{display:inline-block;margin-left:8px;padding:2px 7px;background:var(--acc);color:#000;font-family:var(--mono);font-size:9px;font-weight:700;border-radius:1px;letter-spacing:.1em;vertical-align:middle}
 
 /* Table cell styles */
-.tc-time{font-family:var(--mono);font-size:10px;color:var(--text2);white-space:nowrap}
-.tc-flag{font-size:13px;line-height:1}
-.tc-country{font-family:var(--mono);font-size:9px;font-weight:700;color:var(--text);letter-spacing:.05em;margin-top:1px}
-.evt-name-main{font-size:11px;font-weight:600;color:var(--text);line-height:1.3}
-.evt-name-desc{font-size:9px;color:var(--text3);margin-top:2px;line-height:1.4;max-width:240px}
+.tc-time{font-family:var(--mono);font-size:12px;color:var(--text2);white-space:nowrap}
+.tc-flag{font-size:15px;line-height:1}
+.tc-country{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--text);letter-spacing:.05em;margin-top:2px}
+.tc-pair{font-family:var(--mono);font-size:10px;font-weight:600;color:var(--acc);letter-spacing:.02em;margin-top:3px;white-space:nowrap}
+.evt-name-main{font-size:13px;font-weight:600;color:var(--text);line-height:1.35}
+.evt-name-desc{font-size:11px;color:var(--text3);margin-top:3px;line-height:1.5;max-width:260px}
 
 /* Impact dots — Bloomberg style */
-.impact-cell{display:flex;align-items:center;gap:3px;padding-top:2px}
-.imp-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.impact-cell{display:flex;align-items:center;gap:4px;padding-top:2px}
+.imp-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 .imp-dot-high{background:var(--red)}
 .imp-dot-med{background:var(--gold)}
 .imp-dot-low{background:var(--text3)}
-.imp-label{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.05em}
+.imp-label{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.04em}
 .imp-high-txt{color:var(--red)}
 .imp-med-txt{color:var(--gold)}
 .imp-low-txt{color:var(--text3)}
 
 /* Category pill */
-.cat-pill{display:inline-block;padding:1px 5px;border-radius:1px;font-family:var(--mono);font-size:8px;font-weight:700;letter-spacing:.08em;border:1px solid;white-space:nowrap}
+.cat-pill{display:inline-block;padding:2px 6px;border-radius:1px;font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.07em;border:1px solid;white-space:nowrap}
 .cp-rate{color:var(--purple);border-color:var(--purp2);background:rgba(157,113,255,.08)}
 .cp-infl{color:var(--gold);border-color:var(--gold3);background:rgba(240,180,41,.08)}
 .cp-gdp{color:var(--blue);border-color:var(--blue2);background:rgba(61,158,255,.08)}
@@ -285,7 +287,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 .cp-earnings{color:#B07EFF;border-color:var(--purp2);background:rgba(176,126,255,.08)}
 
 /* Signal column */
-.tc-signal{font-size:10px;color:var(--text2);line-height:1.5;max-width:220px}
+.tc-signal{font-size:11.5px;color:var(--text2);line-height:1.55;max-width:240px}
 .sig-beat{color:var(--acc)}
 .sig-miss{color:var(--red)}
 
@@ -299,7 +301,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 
 @media(max-width:768px){
   .clock-utc-group,.sessions{display:none}
-  .topbar-left .topbar-divider:nth-child(3){display:none}
   .g4{grid-template-columns:repeat(2,1fr)}
   .g3{grid-template-columns:repeat(2,1fr)}
   .shocks-grid{grid-template-columns:1fr}
@@ -316,6 +317,14 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
       <div class="logo-sq">M</div>
       <div class="logo-text">MacroBoard</div>
     </div>
+  </div>
+  <div class="topbar-right">
+    <div class="sessions">
+      <div class="sesh syd" id="sesh-syd"><div class="sesh-dot"></div>SYD</div>
+      <div class="sesh tok" id="sesh-tok"><div class="sesh-dot"></div>TOK</div>
+      <div class="sesh lon" id="sesh-lon"><div class="sesh-dot"></div>LON</div>
+      <div class="sesh ny"  id="sesh-ny"><div class="sesh-dot"></div>NY</div>
+    </div>
     <div class="topbar-divider"></div>
     <div class="clock-group">
       <div class="clock-local">
@@ -328,14 +337,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
       </div>
     </div>
     <div class="topbar-divider"></div>
-    <div class="sessions">
-      <div class="sesh syd" id="sesh-syd"><div class="sesh-dot"></div>SYD</div>
-      <div class="sesh tok" id="sesh-tok"><div class="sesh-dot"></div>TOK</div>
-      <div class="sesh lon" id="sesh-lon"><div class="sesh-dot"></div>LON</div>
-      <div class="sesh ny"  id="sesh-ny"><div class="sesh-dot"></div>NY</div>
-    </div>
+    <div class="live-badge"><div class="live-dot"></div>LIVE</div>
   </div>
-  <div class="live-badge"><div class="live-dot"></div>LIVE</div>
 </div>
 
 <!-- ── NAV ── -->
@@ -412,7 +415,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
         <thead>
           <tr>
             <th style="width:60px">TIME<br><span style="font-size:8px;color:var(--text3)">(UTC)</span></th>
-            <th style="width:52px">CTR</th>
+            <th style="width:110px">CTR / PAIR</th>
             <th>EVENT</th>
             <th style="width:100px">CATEGORY</th>
             <th style="width:64px">IMPACT</th>
@@ -713,6 +716,7 @@ renderShocks();
    ECONOMIC CALENDAR — Bloomberg Style
 ══════════════════════════════════════════ */
 const FLAGS={US:'🇺🇸',EU:'🇪🇺',UK:'🇬🇧',JP:'🇯🇵',AU:'🇦🇺',CA:'🇨🇦',CH:'🇨🇭',CN:'🇨🇳'};
+const COUNTRY_PAIR={US:'EUR/USD · USD/JPY',EU:'EUR/USD',UK:'GBP/USD',JP:'USD/JPY',AU:'AUD/USD',CA:'USD/CAD',CH:'USD/CHF',CN:'AUD/USD'};
 const CATS={rate:'INT.RATE',infl:'INFLATION',gdp:'GDP',labor:'LABOUR',biz:'BIZ.CONF',energy:'ENERGY',holiday:'HOLIDAY',earnings:'EARNINGS'};
 const CAT_CP={rate:'cp-rate',infl:'cp-infl',gdp:'cp-gdp',labor:'cp-labor',biz:'cp-biz',energy:'cp-energy',holiday:'cp-holiday',earnings:'cp-earnings'};
 const CAT_FILTER_KEYS=['all','rate','infl','gdp','labor','biz','energy','earnings'];
@@ -822,9 +826,10 @@ function renderCalendar(){
       const catPill=CAT_CP[e.cat]||'cp-biz';
       const catLbl=CATS[e.cat]||e.cat.toUpperCase();
       const rowCls=(isToday?'row-today ':'')+((e.nfp)?'row-nfp':'');
+      const pairTxt=COUNTRY_PAIR[e.country]?`(${COUNTRY_PAIR[e.country]})`:'';
       html+=`<tr class="${rowCls}">
         <td><div class="tc-time">${e.time}</div></td>
-        <td><div class="tc-flag">${FLAGS[e.country]||''}</div><div class="tc-country">${e.country}</div></td>
+        <td><div class="tc-flag">${FLAGS[e.country]||''}</div><div class="tc-country">${e.country}</div><div class="tc-pair">${pairTxt}</div></td>
         <td><div class="evt-name-main">${e.name}</div><div class="evt-name-desc">${e.desc}</div></td>
         <td><span class="cat-pill ${catPill}">${catLbl}</span></td>
         <td><div class="impact-cell"><div class="imp-dot ${impDot}"></div><span class="imp-label ${impTxt}">${impLbl}</span></div></td>
